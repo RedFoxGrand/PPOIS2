@@ -22,7 +22,7 @@ lab1/
 │   └── university.py       # Главный класс-контейнер University
 ├── tests/                  # Модульные тесты
 │   └── tests.py            # Unit-тесты для проверки логики
-├── .coveragerc             # Конфигурация для coverage.py
+├── pyproject.toml          # Конфигурационный файл для Python-проектов
 └── .gitignore              # Исключения для Git
 ```
 
