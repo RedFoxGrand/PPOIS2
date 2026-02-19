@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# База данных
+*.pkl
+*.pkl.tmp
+
+# Coverage (отчеты о покрытии тестами)
+.coverage
+htmlcov/
+
+# Настройки IDE
+.vscode/
+.idea/
+
+# Метаданные пакета
+*.egg-info/
