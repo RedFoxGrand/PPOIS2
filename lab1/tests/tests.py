@@ -1,7 +1,7 @@
 import unittest
 
 from unittest.mock import patch, mock_open
-import sources.storage as storage
+from sources.storage import Storage
 from sources.models import (
     Curriculum,
     Student,
@@ -44,13 +44,13 @@ class TestClassroom(unittest.TestCase):
         self.assertTrue(self.room.is_occupied)
 
         with self.assertRaises(StateError):
-            self.room.occupy()  # Уже занята
+            self.room.occupy()
 
         self.room.vacate()
         self.assertFalse(self.room.is_occupied)
 
         with self.assertRaises(StateError):
-            self.room.vacate()  # Уже свободна
+            self.room.vacate()
 
 
 class TestStudent(unittest.TestCase):
@@ -135,7 +135,6 @@ class TestUniversity(unittest.TestCase):
         self.assertEqual(s.curriculum.specialty_name, "CS")
 
     def test_enroll_student_case_insensitive(self):
-        # Проверка "cs" вместо "CS"
         s = self.uni.enroll_student("Bob", 19, "cs")
         assert s.curriculum is not None
         self.assertEqual(s.curriculum.specialty_name, "CS")
@@ -185,32 +184,27 @@ class TestExamProcess(unittest.TestCase):
 
     @patch("sources.models.randint")
     def test_conduct_exam_success(self, mock_randint):
-        # Настраиваем randint, чтобы он возвращал 5 (сдал)
         mock_randint.return_value = 5
 
         expelled = self.exam.conduct()
 
         self.assertEqual(self.student1.record_book["OOP"], 5)
         self.assertEqual(self.student2.record_book["OOP"], 5)
-        self.assertFalse(self.classroom.is_occupied)  # Аудитория должна освободиться
-        self.assertEqual(len(expelled), 0)  # Никого не должны отчислить
-        self.assertEqual(len(self.uni.students), 2)  # Никого не отчислили
+        self.assertFalse(self.classroom.is_occupied)
+        self.assertEqual(len(expelled), 0)
+        self.assertEqual(len(self.uni.students), 2)
 
     @patch("sources.models.randint")
     def test_conduct_exam_expulsion(self, mock_randint):
-        # Настраиваем randint, чтобы он возвращал 2 (не сдал)
         mock_randint.return_value = 2
 
         expelled = self.exam.conduct()
 
-        # Проверяем, что метод вернул обоих студентов на отчисление
         self.assertIn(self.student1, expelled)
         self.assertIn(self.student2, expelled)
 
-        # Сам список студентов в университете пока не изменился (это делает контроллер)
         self.assertEqual(len(self.uni.students), 2)
 
-        # Эмулируем действие контроллера для проверки интеграции
         for s in expelled:
             self.uni.expel_student(s)
 
@@ -220,26 +214,24 @@ class TestExamProcess(unittest.TestCase):
 class TestScholarship(unittest.TestCase):
     def setUp(self):
         self.dept = ScholarshipDepartment(_min_average_score=6.0, _base_amount=100.0)
-        self.s1 = Student("Good", 20)  # Avg 8.0
+        self.s1 = Student("Good", 20)
         self.s1._record_book = {"A": 8, "B": 8}
-        self.s2 = Student("Bad", 20)  # Avg 4.0
+        self.s2 = Student("Bad", 20)
         self.s2._record_book = {"A": 4, "B": 4}
 
     def test_calculation(self):
         self.dept.calculate_and_assign([self.s1, self.s2])
 
-        # s1: 8.0 avg. Bonus = (8.0 - 6.0) * 0.1 = 0.2. Total = 100 * 1.2 = 120
         self.assertEqual(self.s1.scholarship_amount, 120.0)
 
-        # s2: < 6.0. Total = 0
         self.assertEqual(self.s2.scholarship_amount, 0.0)
 
 
 class TestStorage(unittest.TestCase):
     def setUp(self):
         self.uni = University("SaveUni")
+        self.storage = Storage("university_db.pkl")
 
-    @patch("sources.storage.DB_FILE", "university_db.pkl")
     @patch("builtins.open", new_callable=mock_open)
     @patch("pickle.dump")
     @patch("os.rename")
@@ -248,19 +240,15 @@ class TestStorage(unittest.TestCase):
     def test_save_data(
         self, mock_exists, mock_remove, mock_rename, mock_dump, mock_file
     ):
-        mock_exists.return_value = True  # Симулируем, что старый файл есть
+        mock_exists.return_value = True
 
-        storage.save_data(self.uni)
+        self.storage.save_data(self.uni)
 
-        # Проверяем, что открывался временный файл
         mock_file.assert_called_with("university_db.pkl.tmp", "wb")
-        # Проверяем, что pickle.dump был вызван
         mock_dump.assert_called()
-        # Проверяем ротацию файлов
         mock_remove.assert_called_with("university_db.pkl")
         mock_rename.assert_called_with("university_db.pkl.tmp", "university_db.pkl")
 
-    @patch("sources.storage.DB_FILE", "university_db.pkl")
     @patch("builtins.open", new_callable=mock_open, read_data=b"data")
     @patch("pickle.load")
     @patch("os.path.exists")
@@ -269,16 +257,15 @@ class TestStorage(unittest.TestCase):
         expected_uni = University("LoadedUni")
         mock_load.return_value = expected_uni
 
-        result = storage.load_data()
+        result = self.storage.load_data()
 
         self.assertEqual(result.name, "LoadedUni")
 
-    @patch("sources.storage.DB_FILE", "university_db.pkl")
     @patch("os.path.exists")
     def test_load_data_no_file(self, mock_exists):
         mock_exists.return_value = False
-        result = storage.load_data()
-        self.assertEqual(result.name, "BSUIR")  # Дефолтный университет
+        result = self.storage.load_data()
+        self.assertEqual(result.name, "BSUIR")
 
 
 if __name__ == "__main__":
