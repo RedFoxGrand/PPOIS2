@@ -32,7 +32,7 @@ class Curriculum:
 
     @property
     def required_subjects(self) -> list[str]:
-        return self._required_subjects
+        return self._required_subjects[:]  # Возвращаем копию списка
 
     @property
     def specialty_name(self) -> str:
@@ -41,8 +41,8 @@ class Curriculum:
     def add_subject(self, subject_name: str) -> None:
         if not subject_name.strip():
             raise ValueError("Название предмета не может быть пустым.")
-        if subject_name not in self.required_subjects:
-            self.required_subjects.append(subject_name)
+        if subject_name not in self._required_subjects:
+            self._required_subjects.append(subject_name)
             print(
                 f"Предмет {subject_name} добавлен в учебный план {self.specialty_name}."
             )
