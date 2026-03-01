@@ -1,7 +1,7 @@
 import sys
 
 from sources.exceptions import EnrollmentError, ResourceError, StorageError, StateError
-from sources.storage import save_data, load_data
+from sources.storage import Storage
 
 from sources.handle_functions import (
     add_student,
@@ -19,8 +19,9 @@ from sources.handle_functions import (
 
 
 def main():
+    storage = Storage()
     try:
-        uni = load_data()
+        uni = storage.load_data()
     except StorageError as e:
         print(f"Критическая ошибка: {e}")
         return
@@ -91,7 +92,7 @@ def main():
 
             elif choice == "0":
                 print("\n[Выход и Сохранение]")
-                save_data(uni)
+                storage.save_data(uni)
                 sys.exit(0)
 
             else:
