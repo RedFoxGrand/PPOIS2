@@ -14,6 +14,7 @@ from sources.models import (
 )
 from sources.exceptions import EnrollmentError, ResourceError
 
+
 @dataclass
 class University:
     _name: str
@@ -39,27 +40,28 @@ class University:
 
     @property
     def students(self) -> list[Student]:
-        return self._students
+        return self._students[:]
 
     @property
     def teachers(self) -> list[Teacher]:
-        return self._teachers
+        return self._teachers[:]
 
     @property
     def classrooms(self) -> list[Classroom]:
-        return self._classrooms
+        return self._classrooms[:]
 
     @property
     def curriculums(self) -> list[Curriculum]:
-        return self._curriculums
+        return self._curriculums[:]
 
     @property
     def exams(self) -> list[Exam]:
-        return self._exams
+        return self._exams[:]
 
     def get_curriculum(self, name: str) -> Optional[Curriculum]:
         return next(
-            (c for c in self.curriculums if c.specialty_name.lower() == name.lower()), None
+            (c for c in self.curriculums if c.specialty_name.lower() == name.lower()),
+            None,
         )
 
     def enroll_student(self, full_name: str, age: int, curriculum_name: str) -> Student:
@@ -69,13 +71,13 @@ class University:
             raise EnrollmentError(f"Учебный план '{curriculum_name}' не существует.")
 
         new_student = Student(full_name, age, _curriculum=curr)
-        self.students.append(new_student)
+        self._students.append(new_student)
         print(f"Студент {new_student.full_name} зачислен в университет.")
         return new_student
 
     def expel_student(self, student: Student) -> None:
-        if student in self.students:
-            self.students.remove(student)
+        if student in self._students:
+            self._students.remove(student)
             print(f"Студент {student.full_name} отчислен за неуспеваемость.")
         else:
             print(f"Студент {student.full_name} не найден в списках.")
@@ -90,14 +92,14 @@ class University:
 
         new_teacher = Teacher(full_name, age, _degree=degree, _subjects=subjects)
 
-        self.teachers.append(new_teacher)
+        self._teachers.append(new_teacher)
         print(f"{new_teacher} {new_teacher.full_name} принят на кафедру.")
 
         return new_teacher
 
     def fire_teacher(self, teacher: Teacher) -> None:
-        if teacher in self.teachers:
-            self.teachers.remove(teacher)
+        if teacher in self._teachers:
+            self._teachers.remove(teacher)
             print(f"Преподаватель {teacher.full_name} сокращён.")
         else:
             print(f"Преподаватель {teacher.full_name} не найден в списках.")
@@ -121,34 +123,34 @@ class University:
             _classroom=classroom,
             _registered_students=students,
         )
-        self.exams.append(exam)
+        self._exams.append(exam)
         return exam
 
     def add_curriculum(self, specialty_name: str) -> Curriculum:
         if not specialty_name.strip():
             raise ValueError("Название специальности не может быть пустым.")
-            
+
         if self.get_curriculum(specialty_name):
             raise ResourceError(f"Учебный план '{specialty_name}' уже существует.")
 
         new_curr = Curriculum(specialty_name)
-        self.curriculums.append(new_curr)
+        self._curriculums.append(new_curr)
         print(f"Учебный план '{specialty_name}' успешно создан.")
         return new_curr
 
     def add_classroom(self, number: int, capacity: int) -> Classroom:
-        if any(c.number == number for c in self.classrooms):
+        if any(c.number == number for c in self._classrooms):
             raise ResourceError(f"Аудитория {number} уже существует.")
 
         new_room = Classroom(number, capacity)
-        self.classrooms.append(new_room)
+        self._classrooms.append(new_room)
         print(f"Аудитория {number} (вместимость: {capacity}) добавлена.")
         return new_room
 
     def process_semester_end(self) -> None:
-        if not self.students:
+        if not self._students:
             print("Нет студентов для начисления стипендии.")
             return
 
-        self.accounting.calculate_and_assign(self.students)
+        self.accounting.calculate_and_assign(self._students)
         print("Семестр успешно закрыт\n")
