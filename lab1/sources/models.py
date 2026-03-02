@@ -5,8 +5,7 @@ from enum import Enum
 from typing import Optional
 from random import randint
 from uuid import uuid4
-
-from sources.exceptions import ResourceError, EnrollmentError, StateError
+from sources.exceptions import ResourceError
 
 
 class TeacherDegree(Enum):
@@ -31,21 +30,18 @@ class Curriculum:
     _required_subjects: list[str] = field(default_factory=list)
 
     @property
-    def required_subjects(self) -> list[str]:
-        return self._required_subjects[:]
-
-    @property
     def specialty_name(self) -> str:
         return self._specialty_name
 
+    @property
+    def required_subjects(self) -> list[str]:
+        return self._required_subjects
+
     def add_subject(self, subject_name: str) -> None:
         if not subject_name.strip():
-            raise ValueError("Название предмета не может быть пустым.")
+            raise ValueError("Название предмета не может быть пустым!")
         if subject_name not in self._required_subjects:
             self._required_subjects.append(subject_name)
-            print(
-                f"Предмет {subject_name} добавлен в учебный план {self.specialty_name}."
-            )
 
 
 @dataclass
@@ -55,10 +51,6 @@ class Classroom:
     _is_occupied: bool = False
 
     @property
-    def is_occupied(self) -> bool:
-        return self._is_occupied
-
-    @property
     def number(self) -> int:
         return self._number
 
@@ -66,17 +58,19 @@ class Classroom:
     def capacity(self) -> int:
         return self._capacity
 
+    @property
+    def is_occupied(self) -> bool:
+        return self._is_occupied
+
+    @is_occupied.setter
+    def is_occupied(self, value: bool) -> None:
+        self._is_occupied = value
+
     def occupy(self) -> None:
-        if self.is_occupied:
-            raise StateError(f"Аудитория {self.number} уже занята!")
         self._is_occupied = True
-        print(f"Аудитория {self.number} забронирована.")
 
     def vacate(self) -> None:
-        if not self.is_occupied:
-            raise StateError(f"Аудитория {self.number} и так свободна!")
         self._is_occupied = False
-        print(f"Аудитория {self.number} освобождена.")
 
 
 @dataclass
@@ -97,8 +91,9 @@ class Person(ABC):
     def id(self) -> str:
         return self._id
 
-    def __str__(self) -> str:
-        return f"[{self.id[:6]}] {self.full_name} ({self.age} лет)"
+    @id.setter
+    def id(self, value: str) -> None:
+        self._id = value
 
 
 @dataclass
@@ -118,11 +113,11 @@ class Student(Person):
 
     @property
     def record_book(self) -> dict[str, int]:
-        return self._record_book.copy()
+        return self._record_book
 
     @property
     def borrowed_books(self) -> list[Book]:
-        return self._borrowed_books[:]
+        return self._borrowed_books
 
     @property
     def average_score(self) -> float:
@@ -130,25 +125,28 @@ class Student(Person):
             return 0.0
         return sum(self._record_book.values()) / len(self._record_book)
 
+    @curriculum.setter
+    def curriculum(self, curriculum: Optional[Curriculum]) -> None:
+        self._curriculum = curriculum
+
+    @scholarship_amount.setter
+    def scholarship_amount(self, amount: float) -> None:
+        self._scholarship_amount = amount
+
+    @record_book.setter
+    def record_book(self, record_book: dict[str, int]) -> None:
+        self._record_book = record_book
+
     def assign_scholarship(self, amount: float) -> None:
         self._scholarship_amount = amount
-        print(f"Студенту {self.full_name} назначена стипендия: {amount}")
 
     def take_exam(self, subject_name: str, grade: int) -> None:
-        if not (0 <= grade <= 10):
-            raise ValueError("Оценка должна быть от 0 до 10!")
-
-        if self.curriculum and subject_name not in self.curriculum.required_subjects:
-            raise EnrollmentError(
-                f"Предмет {subject_name} не входит в учебный план студента!"
-            )
-
         self._record_book[subject_name] = grade
 
     def borrow_book(self, book: Book) -> None:
         if book in self._borrowed_books:
             raise ResourceError(
-                f"У студента {self.full_name} уже есть книга '{book.title}'!"
+                f"У студента {self._full_name} уже есть книга '{book.title}'!"
             )
         self._borrowed_books.append(book)
 
@@ -157,6 +155,9 @@ class Student(Person):
             self._borrowed_books.remove(book)
         else:
             raise ResourceError(f"Студент не брал книгу '{book.title}'!")
+
+    def add_book(self, book: Book) -> None:
+        self._borrowed_books.append(book)
 
 
 @dataclass
@@ -172,11 +173,16 @@ class Teacher(Person):
     def subjects(self) -> list[str]:
         return self._subjects
 
+    @degree.setter
+    def degree(self, degree: Optional[TeacherDegree]) -> None:
+        self._degree = degree
+
+    @subjects.setter
+    def subjects(self, subjects: list[str]) -> None:
+        self._subjects = subjects
+
     def evaluate_student(self, student: Student, subject: str, grade: int) -> None:
         student.take_exam(subject, grade)
-        print(
-            f"Преподаватель {self.full_name} поставил {grade} студенту {student.full_name}."
-        )
 
 
 @dataclass
@@ -184,25 +190,17 @@ class ScholarshipDepartment:
     _min_average_score: float = 6.0
     _base_amount: float = 100.0
 
-    @property
-    def min_average_score(self) -> float:
-        return self._min_average_score
-
-    @property
-    def base_amount(self) -> float:
-        return self._base_amount
-
-    def calculate_and_assign(self, students: list[Student]) -> None:
+    def calculate_and_assign(self, students: list[Student]) -> int:
         count = 0
         for student in students:
-            if student.average_score >= self.min_average_score:
-                bonus = (student.average_score - self.min_average_score) * 0.1
-                final_amount = round(self.base_amount * (1 + bonus), 2)
+            if student.average_score >= self._min_average_score:
+                bonus = (student.average_score - self._min_average_score) * 0.1
+                final_amount = round(self._base_amount * (1 + bonus), 2)
                 student.assign_scholarship(final_amount)
                 count += 1
             else:
                 student.assign_scholarship(0.0)
-        print(f"Стипендия назначена {count} студентам.")
+        return count
 
 
 @dataclass
@@ -211,9 +209,9 @@ class Library:
 
     @property
     def inventory(self) -> dict[Book, int]:
-        return self._inventory.copy()
+        return self._inventory
 
-    def add_book(self, book: Book, quantity: int = 1) -> None:
+    def add_book(self, book: Book, quantity: int) -> None:
         if book in self._inventory:
             self._inventory[book] += quantity
         else:
@@ -221,34 +219,19 @@ class Library:
 
     def lend_book(self, student: Student, book_title: str) -> None:
         found_book = next((b for b in self._inventory if b.title == book_title), None)
-
         if not found_book:
-            raise ResourceError(f"Книга '{book_title}' не найдена в каталоге.")
-
+            raise ResourceError(f"Книга '{book_title}' не найдена в каталоге!")
         if self._inventory[found_book] <= 0:
-            raise ResourceError(f"Все экземпляры '{book_title}' выданы.")
-
-        try:
-            student.borrow_book(found_book)
-            self._inventory[found_book] -= 1
-            print(f"Книга '{book_title}' выдана студенту {student.full_name}.")
-        except ResourceError as e:
-            raise e
+            raise ResourceError(f"Все экземпляры '{book_title}' выданы!")
+        student.borrow_book(found_book)
+        self._inventory[found_book] -= 1
 
     def accept_return(self, student: Student, book_title: str) -> None:
         found_book = next((b for b in self._inventory if b.title == book_title), None)
-
         if not found_book:
-            raise ResourceError(f"Книга '{book_title}' не принадлежит этой библиотеке.")
-
-        if found_book not in student.borrowed_books:
-            raise ResourceError(
-                f"Студент {student.full_name} не брал книгу '{book_title}'!"
-            )
-
+            raise ResourceError(f"Книга '{book_title}' не принадлежит этой библиотеке!")
         student.return_book(found_book)
         self._inventory[found_book] += 1
-        print(f"Студент {student.full_name} вернул книгу '{found_book.title}'.")
 
 
 @dataclass
@@ -278,23 +261,19 @@ class Exam:
     @property
     def registered_students(self) -> list[Student]:
         return self._registered_students
+    
+    @registered_students.setter
+    def registered_students(self, students: list[Student]) -> None:
+        self._registered_students = students
 
     def conduct(self) -> list[Student]:
-        print(f"\nЭкзамен по {self.subject} начался ({self.date.date()})\n")
-
-        self.classroom.occupy()
-
+        self._classroom.occupy()
         students_to_expel = []
-
-        for student in self.registered_students:
+        for student in self._registered_students:
             grade = randint(1, 10)
-
-            self.teacher.evaluate_student(student, self.subject, grade)
-
+            self._teacher.evaluate_student(student, self._subject, grade)
             if grade < 4:
-                print(f"{student.full_name} не сдал (Оценка: {grade})")
                 students_to_expel.append(student)
-
-        self.classroom.vacate()
-        print("\nЭкзамен завершён\n")
+        self._classroom.vacate()
         return students_to_expel
+
