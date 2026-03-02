@@ -32,7 +32,7 @@ class Curriculum:
 
     @property
     def required_subjects(self) -> list[str]:
-        return self._required_subjects[:]  # Возвращаем копию списка
+        return self._required_subjects[:]
 
     @property
     def specialty_name(self) -> str:
