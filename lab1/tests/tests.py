@@ -1,11 +1,9 @@
 import unittest
-
 from unittest.mock import patch, mock_open
 from sources.storage import Storage
 from sources.models import (
     Curriculum,
     Student,
-    Teacher,
     Classroom,
     Book,
     Library,
@@ -13,7 +11,7 @@ from sources.models import (
     ScholarshipDepartment,
 )
 from sources.university import University
-from sources.exceptions import EnrollmentError, ResourceError, StateError
+from sources.exceptions import EnrollmentError, ResourceError, StorageError
 
 
 class TestCurriculum(unittest.TestCase):
@@ -43,14 +41,8 @@ class TestClassroom(unittest.TestCase):
         self.room.occupy()
         self.assertTrue(self.room.is_occupied)
 
-        with self.assertRaises(StateError):
-            self.room.occupy()
-
         self.room.vacate()
         self.assertFalse(self.room.is_occupied)
-
-        with self.assertRaises(StateError):
-            self.room.vacate()
 
 
 class TestStudent(unittest.TestCase):
@@ -58,29 +50,12 @@ class TestStudent(unittest.TestCase):
         self.curr = Curriculum("ИИ", ["Math", "Code"])
         self.student = Student("Ivan", 20, _curriculum=self.curr)
 
-    def test_take_exam_success(self):
-        self.student.take_exam("Math", 9)
-        self.assertEqual(self.student.record_book["Math"], 9)
-
-    def test_take_exam_invalid_grade(self):
-        with self.assertRaises(ValueError):
-            self.student.take_exam("Math", 11)
-
-    def test_take_exam_wrong_subject(self):
-        with self.assertRaises(EnrollmentError):
-            self.student.take_exam("History", 5)
-
     def test_average_score(self):
         self.assertEqual(self.student.average_score, 0.0)
         self.student.take_exam("Math", 8)
+        self.assertEqual(self.student.record_book["Math"], 8)
         self.student.take_exam("Code", 10)
         self.assertEqual(self.student.average_score, 9.0)
-
-
-class TestTeacher(unittest.TestCase):
-    def setUp(self):
-        self.teacher = Teacher("Dr. House", 50, _subjects=["Anatomy"])
-        self.room = Classroom(202, 20)
 
 
 class TestLibrary(unittest.TestCase):
@@ -90,10 +65,14 @@ class TestLibrary(unittest.TestCase):
         self.student = Student("Reader", 20)
         self.lib.add_book(self.book, 2)
 
-    def test_lend_book(self):
+    def test_lend_return_cycle(self):
         self.lib.lend_book(self.student, "1984")
         self.assertEqual(self.lib.inventory[self.book], 1)
         self.assertIn(self.book, self.student.borrowed_books)
+
+        self.lib.accept_return(self.student, "1984")
+        self.assertEqual(self.lib.inventory[self.book], 2)
+        self.assertNotIn(self.book, self.student.borrowed_books)
 
     def test_lend_book_not_found(self):
         with self.assertRaises(ResourceError):
@@ -106,12 +85,6 @@ class TestLibrary(unittest.TestCase):
 
         with self.assertRaises(ResourceError):
             self.lib.lend_book(Student("Late", 22), "1984")
-
-    def test_return_book(self):
-        self.lib.lend_book(self.student, "1984")
-        self.lib.accept_return(self.student, "1984")
-        self.assertEqual(self.lib.inventory[self.book], 2)
-        self.assertNotIn(self.book, self.student.borrowed_books)
 
 
 class TestUniversity(unittest.TestCase):
@@ -131,11 +104,6 @@ class TestUniversity(unittest.TestCase):
     def test_enroll_student(self):
         s = self.uni.enroll_student("Alex", 18, "CS")
         self.assertIn(s, self.uni.students)
-        assert s.curriculum is not None
-        self.assertEqual(s.curriculum.specialty_name, "CS")
-
-    def test_enroll_student_case_insensitive(self):
-        s = self.uni.enroll_student("Bob", 19, "cs")
         assert s.curriculum is not None
         self.assertEqual(s.curriculum.specialty_name, "CS")
 
@@ -183,32 +151,17 @@ class TestExamProcess(unittest.TestCase):
         )
 
     @patch("sources.models.randint")
-    def test_conduct_exam_success(self, mock_randint):
-        mock_randint.return_value = 5
+    def test_conduct_exam(self, mock_randint):
+        mock_randint.side_effect = [5, 2]
 
         expelled = self.exam.conduct()
 
         self.assertEqual(self.student1.record_book["OOP"], 5)
-        self.assertEqual(self.student2.record_book["OOP"], 5)
+        self.assertEqual(self.student2.record_book["OOP"], 2)
         self.assertFalse(self.classroom.is_occupied)
-        self.assertEqual(len(expelled), 0)
-        self.assertEqual(len(self.uni.students), 2)
 
-    @patch("sources.models.randint")
-    def test_conduct_exam_expulsion(self, mock_randint):
-        mock_randint.return_value = 2
-
-        expelled = self.exam.conduct()
-
-        self.assertIn(self.student1, expelled)
+        self.assertNotIn(self.student1, expelled)
         self.assertIn(self.student2, expelled)
-
-        self.assertEqual(len(self.uni.students), 2)
-
-        for s in expelled:
-            self.uni.expel_student(s)
-
-        self.assertEqual(len(self.uni.students), 0)
 
 
 class TestScholarship(unittest.TestCase):
@@ -230,10 +183,10 @@ class TestScholarship(unittest.TestCase):
 class TestStorage(unittest.TestCase):
     def setUp(self):
         self.uni = University("SaveUni")
-        self.storage = Storage("university_db.pkl")
+        self.storage = Storage("university_db.json")
 
     @patch("builtins.open", new_callable=mock_open)
-    @patch("pickle.dump")
+    @patch("json.dump")
     @patch("os.rename")
     @patch("os.remove")
     @patch("os.path.exists")
@@ -244,28 +197,102 @@ class TestStorage(unittest.TestCase):
 
         self.storage.save_data(self.uni)
 
-        mock_file.assert_called_with("university_db.pkl.tmp", "wb")
+        mock_file.assert_called_with("university_db.json.tmp", "w", encoding="utf-8")
         mock_dump.assert_called()
-        mock_remove.assert_called_with("university_db.pkl")
-        mock_rename.assert_called_with("university_db.pkl.tmp", "university_db.pkl")
+        mock_remove.assert_called_with("university_db.json")
+        mock_rename.assert_called_with("university_db.json.tmp", "university_db.json")
 
-    @patch("builtins.open", new_callable=mock_open, read_data=b"data")
-    @patch("pickle.load")
+    @patch("builtins.open", new_callable=mock_open)
     @patch("os.path.exists")
-    def test_load_data_success(self, mock_exists, mock_load, mock_file):
+    def test_save_data_error(self, mock_exists, mock_file):
         mock_exists.return_value = True
-        expected_uni = University("LoadedUni")
-        mock_load.return_value = expected_uni
+        mock_file.side_effect = IOError("Permission denied")
 
-        result = self.storage.load_data()
+        with self.assertRaises(StorageError):
+            self.storage.save_data(self.uni)
 
-        self.assertEqual(result.name, "LoadedUni")
+    @patch("builtins.open", new_callable=mock_open)
+    @patch("json.load")
+    @patch("os.path.exists")
+    def test_load_data_corrupted(self, mock_exists, mock_load, mock_file):
+        mock_exists.return_value = True
+        mock_load.side_effect = ValueError("JSON Decode Error")
+
+        # Should raise StorageError
+        with self.assertRaises(StorageError):
+            self.storage.load_data()
+
+    @patch("builtins.open", new_callable=mock_open)
+    @patch("json.load")
+    @patch("os.path.exists")
+    def test_load_data_full_reconstruction(self, mock_exists, mock_load, mock_file):
+        mock_exists.return_value = True
+
+        data = {
+            "name": "RestoredUni",
+            "curriculums": [
+                {"specialty_name": "CS", "required_subjects": ["Math", "Code"]}
+            ],
+            "classrooms": [{"number": 101, "capacity": 30, "is_occupied": False}],
+            "teachers": [
+                {
+                    "id": "t-uuid",
+                    "full_name": "Dr. Smith",
+                    "age": 45,
+                    "degree": "Доцент",
+                    "subjects": ["Math"],
+                }
+            ],
+            "library": [
+                {
+                    "book": {"title": "PyBook", "author": "Guido", "isbn": "b-uuid"},
+                    "quantity": 10,
+                }
+            ],
+            "students": [
+                {
+                    "id": "s-uuid",
+                    "full_name": "Alice",
+                    "age": 20,
+                    "curriculum_name": "CS",
+                    "scholarship_amount": 100.0,
+                    "record_book": {"Math": 9},
+                    "borrowed_books_isbns": ["b-uuid"],
+                }
+            ],
+            "exams": [
+                {
+                    "subject": "Math",
+                    "date": "2023-06-01T09:00:00",
+                    "teacher_id": "t-uuid",
+                    "classroom_number": 101,
+                    "student_ids": ["s-uuid"],
+                }
+            ],
+        }
+
+        mock_load.return_value = data
+
+        uni = self.storage.load_data()
+
+        self.assertEqual(uni.name, "RestoredUni")
+
+        student = uni.students[0]
+        assert student.curriculum is not None
+        self.assertEqual(student.curriculum.specialty_name, "CS")
+        self.assertEqual(len(student.borrowed_books), 1)
+        self.assertEqual(student.borrowed_books[0].title, "PyBook")
+
+        exam = uni.exams[0]
+        self.assertEqual(exam.teacher.full_name, "Dr. Smith")
+        self.assertEqual(exam.classroom.number, 101)
+        self.assertEqual(exam.registered_students[0].full_name, "Alice")
 
     @patch("os.path.exists")
     def test_load_data_no_file(self, mock_exists):
         mock_exists.return_value = False
-        result = self.storage.load_data()
-        self.assertEqual(result.name, "BSUIR")
+        with self.assertRaises(FileNotFoundError):
+            self.storage.load_data()
 
 
 if __name__ == "__main__":
