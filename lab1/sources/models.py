@@ -118,17 +118,17 @@ class Student(Person):
 
     @property
     def record_book(self) -> dict[str, int]:
-        return self._record_book
+        return self._record_book.copy()
 
     @property
     def borrowed_books(self) -> list[Book]:
-        return self._borrowed_books
+        return self._borrowed_books[:]
 
     @property
     def average_score(self) -> float:
-        if not self.record_book:
+        if not self._record_book:
             return 0.0
-        return sum(self.record_book.values()) / len(self.record_book)
+        return sum(self._record_book.values()) / len(self._record_book)
 
     def assign_scholarship(self, amount: float) -> None:
         self._scholarship_amount = amount
@@ -143,18 +143,18 @@ class Student(Person):
                 f"Предмет {subject_name} не входит в учебный план студента!"
             )
 
-        self.record_book[subject_name] = grade
+        self._record_book[subject_name] = grade
 
     def borrow_book(self, book: Book) -> None:
-        if book in self.borrowed_books:
+        if book in self._borrowed_books:
             raise ResourceError(
                 f"У студента {self.full_name} уже есть книга '{book.title}'!"
             )
-        self.borrowed_books.append(book)
+        self._borrowed_books.append(book)
 
     def return_book(self, book: Book) -> None:
-        if book in self.borrowed_books:
-            self.borrowed_books.remove(book)
+        if book in self._borrowed_books:
+            self._borrowed_books.remove(book)
         else:
             raise ResourceError(f"Студент не брал книгу '{book.title}'!")
 
@@ -211,32 +211,32 @@ class Library:
 
     @property
     def inventory(self) -> dict[Book, int]:
-        return self._inventory
+        return self._inventory.copy()
 
     def add_book(self, book: Book, quantity: int = 1) -> None:
-        if book in self.inventory:
-            self.inventory[book] += quantity
+        if book in self._inventory:
+            self._inventory[book] += quantity
         else:
-            self.inventory[book] = quantity
+            self._inventory[book] = quantity
 
     def lend_book(self, student: Student, book_title: str) -> None:
-        found_book = next((b for b in self.inventory if b.title == book_title), None)
+        found_book = next((b for b in self._inventory if b.title == book_title), None)
 
         if not found_book:
             raise ResourceError(f"Книга '{book_title}' не найдена в каталоге.")
 
-        if self.inventory[found_book] <= 0:
+        if self._inventory[found_book] <= 0:
             raise ResourceError(f"Все экземпляры '{book_title}' выданы.")
 
         try:
             student.borrow_book(found_book)
-            self.inventory[found_book] -= 1
+            self._inventory[found_book] -= 1
             print(f"Книга '{book_title}' выдана студенту {student.full_name}.")
         except ResourceError as e:
             raise e
 
     def accept_return(self, student: Student, book_title: str) -> None:
-        found_book = next((b for b in self.inventory if b.title == book_title), None)
+        found_book = next((b for b in self._inventory if b.title == book_title), None)
 
         if not found_book:
             raise ResourceError(f"Книга '{book_title}' не принадлежит этой библиотеке.")
@@ -247,7 +247,7 @@ class Library:
             )
 
         student.return_book(found_book)
-        self.inventory[found_book] += 1
+        self._inventory[found_book] += 1
         print(f"Студент {student.full_name} вернул книгу '{found_book.title}'.")
 
 
