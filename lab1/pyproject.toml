@@ -1,3 +1,37 @@
+<<<<<<< HEAD
+[project]
+name = "aois-lab1"
+version = "1.0.0"
+description = "Лабораторная работа №1 по АОИС: Арифметика чисел с фиксированной и плавающей точкой, BCD коды"
+requires-python = ">=3.10"
+dependencies = []
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "-ra -q"
+testpaths = [
+    "tests",
+]
+python_files = "*Test.py"
+python_classes = "*Test"
+python_functions = "test_*"
+
+[tool.black]
+line-length = 88
+target-version = ['py310']
+include = '\.pyi?$'
+
+[tool.isort]
+profile = "black"
+line_length = 88
+multi_line_output = 3
+
+[tool.coverage.run]
+source = ["sources"]
+
+[tool.coverage.report]
+show_missing = true
+=======
 [build-system]
 requires = ["setuptools", "wheel"]
 build-backend = "setuptools.build_meta"
@@ -22,3 +56,4 @@ omit = [
 
 [tool.coverage.html]
 directory = "tests/htmlcov"
+>>>>>>> 9a1e0cef7af4b8cfb1f6e549c12faf7f7a04111e

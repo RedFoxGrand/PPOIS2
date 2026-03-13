@@ -1,8 +1,6 @@
 import sys
-
 from sources.exceptions import EnrollmentError, ResourceError, StorageError, StateError
-from sources.storage import save_data, load_data
-
+from sources.storage import Storage
 from sources.handle_functions import (
     add_student,
     remove_student,
@@ -19,11 +17,17 @@ from sources.handle_functions import (
 
 
 def main():
+    storage = Storage()
     try:
-        uni = load_data()
+        uni = storage.load_data()
+        print(f"\nЗагружена база: {uni.name}")
+    except FileNotFoundError:
+        print("\nФайл базы данных не найден. Создаём новый университет.")
+        uni = storage.create_default_university()
     except StorageError as e:
-        print(f"Критическая ошибка: {e}")
-        return
+        print(f"\nОшибка чтения JSON или файл повреждён: {e}")
+        print("Создаём новую базу.")
+        uni = storage.create_default_university()
 
     while True:
         print(
@@ -38,9 +42,9 @@ def main():
         print("6. Добавить предмет в учебный план")
         print("7. Добавить аудиторию")
         print("8. Провести экзамен")
-        print("9. Библиотека: Взять книгу")
-        print("10. Библиотека: Вернуть книгу")
-        print("11. Библиотека: Добавить книгу в ассортимент")
+        print("9. Взять книгу")
+        print("10. Вернуть книгу")
+        print("11. Добавить книгу в ассортимент")
         print("12. Завершить семестр (Расчёт стипендии)")
         print("0. Выход и Сохранение")
 
@@ -87,11 +91,16 @@ def main():
 
             elif choice == "12":
                 print("\n[Завершение семестра (Расчёт стипендии)]")
-                uni.process_semester_end()
+                count = uni.process_semester_end()
+                if count > 0:
+                    print(f"Семестр закрыт. Стипендия назначена {count} студентам.")
+                else:
+                    print("Семестр закрыт. Стипендии не назначены.")
 
             elif choice == "0":
                 print("\n[Выход и Сохранение]")
-                save_data(uni)
+                storage.save_data(uni)
+                print(f"Данные сохранены в '{storage.file}'")
                 sys.exit(0)
 
             else:

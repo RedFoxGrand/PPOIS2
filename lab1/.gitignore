@@ -3,17 +3,46 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+<<<<<<< HEAD
+# Virtual Environments
+venv/
+.venv/
+env/
+.env
+
+# Distribution / Packaging
+dist/
+build/
+*.egg-info/
+=======
 # База данных
 *.pkl
 *.pkl.tmp
+>>>>>>> 9a1e0cef7af4b8cfb1f6e549c12faf7f7a04111e
 
 # Coverage (отчеты о покрытии тестами)
 .coverage
 htmlcov/
+<<<<<<< HEAD
+.pytest_cache/
+.mypy_cache/
+=======
+>>>>>>> 9a1e0cef7af4b8cfb1f6e549c12faf7f7a04111e
 
 # Настройки IDE
 .vscode/
 .idea/
+<<<<<<< HEAD
+*.swp
+*.swo
+
+# Logs
+*.log
+
+# OS specific
+.DS_Store
+=======
 
 # Метаданные пакета
 *.egg-info/
+>>>>>>> 9a1e0cef7af4b8cfb1f6e549c12faf7f7a04111e
