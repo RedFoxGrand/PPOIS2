@@ -1,0 +1,603 @@
+<?xml version="1.0" encoding="utf-8"?>
+<records>
+  <record>
+    <name>г-н Никонов Христофор Харлампьевич</name>
+    <group>ИИ-4</group>
+    <sick>17</sick>
+    <other>28</other>
+    <disrespectful>22</disrespectful>
+    <total>67</total>
+  </record>
+  <record>
+    <name>Савельева Оксана Аркадьевна</name>
+    <group>ИИ-3</group>
+    <sick>7</sick>
+    <other>17</other>
+    <disrespectful>23</disrespectful>
+    <total>47</total>
+  </record>
+  <record>
+    <name>Элеонора Богдановна Одинцова</name>
+    <group>ИИ-4</group>
+    <sick>30</sick>
+    <other>1</other>
+    <disrespectful>17</disrespectful>
+    <total>48</total>
+  </record>
+  <record>
+    <name>Костина София Станиславовна</name>
+    <group>ИИ-2</group>
+    <sick>19</sick>
+    <other>14</other>
+    <disrespectful>13</disrespectful>
+    <total>46</total>
+  </record>
+  <record>
+    <name>Ефремова Любовь Рубеновна</name>
+    <group>ИИ-4</group>
+    <sick>13</sick>
+    <other>15</other>
+    <disrespectful>5</disrespectful>
+    <total>33</total>
+  </record>
+  <record>
+    <name>Никитин Мечислав Феликсович</name>
+    <group>ИИ-5</group>
+    <sick>2</sick>
+    <other>13</other>
+    <disrespectful>8</disrespectful>
+    <total>23</total>
+  </record>
+  <record>
+    <name>Мир Артемьевич Исаев</name>
+    <group>ИИ-5</group>
+    <sick>14</sick>
+    <other>0</other>
+    <disrespectful>24</disrespectful>
+    <total>38</total>
+  </record>
+  <record>
+    <name>Комиссарова Лукия Оскаровна</name>
+    <group>ИИ-4</group>
+    <sick>6</sick>
+    <other>6</other>
+    <disrespectful>27</disrespectful>
+    <total>39</total>
+  </record>
+  <record>
+    <name>Власов Антип Юльевич</name>
+    <group>ИИ-2</group>
+    <sick>2</sick>
+    <other>20</other>
+    <disrespectful>22</disrespectful>
+    <total>44</total>
+  </record>
+  <record>
+    <name>Корнилова Ирина Михайловна</name>
+    <group>ИИ-1</group>
+    <sick>5</sick>
+    <other>9</other>
+    <disrespectful>3</disrespectful>
+    <total>17</total>
+  </record>
+  <record>
+    <name>Прасковья Ивановна Моисеева</name>
+    <group>ИИ-1</group>
+    <sick>14</sick>
+    <other>27</other>
+    <disrespectful>2</disrespectful>
+    <total>43</total>
+  </record>
+  <record>
+    <name>Щукина Нина Антоновна</name>
+    <group>ИИ-2</group>
+    <sick>12</sick>
+    <other>23</other>
+    <disrespectful>14</disrespectful>
+    <total>49</total>
+  </record>
+  <record>
+    <name>Кузьмина Эмилия Макаровна</name>
+    <group>ИИ-5</group>
+    <sick>22</sick>
+    <other>19</other>
+    <disrespectful>7</disrespectful>
+    <total>48</total>
+  </record>
+  <record>
+    <name>Гуляева Нина Феликсовна</name>
+    <group>ИИ-5</group>
+    <sick>28</sick>
+    <other>21</other>
+    <disrespectful>14</disrespectful>
+    <total>63</total>
+  </record>
+  <record>
+    <name>Лукьян Иосипович Терентьев</name>
+    <group>ИИ-4</group>
+    <sick>20</sick>
+    <other>11</other>
+    <disrespectful>26</disrespectful>
+    <total>57</total>
+  </record>
+  <record>
+    <name>Евгения Юльевна Лукина</name>
+    <group>ИИ-2</group>
+    <sick>16</sick>
+    <other>3</other>
+    <disrespectful>20</disrespectful>
+    <total>39</total>
+  </record>
+  <record>
+    <name>Светлана Эльдаровна Логинова</name>
+    <group>ИИ-2</group>
+    <sick>12</sick>
+    <other>0</other>
+    <disrespectful>4</disrespectful>
+    <total>16</total>
+  </record>
+  <record>
+    <name>Григорьев Самуил Власович</name>
+    <group>ИИ-3</group>
+    <sick>14</sick>
+    <other>1</other>
+    <disrespectful>5</disrespectful>
+    <total>20</total>
+  </record>
+  <record>
+    <name>Матвеев Силантий Игнатьевич</name>
+    <group>ИИ-4</group>
+    <sick>27</sick>
+    <other>18</other>
+    <disrespectful>24</disrespectful>
+    <total>69</total>
+  </record>
+  <record>
+    <name>Колобова Зоя Яковлевна</name>
+    <group>ИИ-4</group>
+    <sick>1</sick>
+    <other>22</other>
+    <disrespectful>21</disrespectful>
+    <total>44</total>
+  </record>
+  <record>
+    <name>Порфирий Даниилович Исаков</name>
+    <group>ИИ-3</group>
+    <sick>4</sick>
+    <other>4</other>
+    <disrespectful>7</disrespectful>
+    <total>15</total>
+  </record>
+  <record>
+    <name>Данилова Надежда Станиславовна</name>
+    <group>ИИ-4</group>
+    <sick>0</sick>
+    <other>16</other>
+    <disrespectful>2</disrespectful>
+    <total>18</total>
+  </record>
+  <record>
+    <name>Лукин Лукьян Федотович</name>
+    <group>ИИ-5</group>
+    <sick>22</sick>
+    <other>17</other>
+    <disrespectful>28</disrespectful>
+    <total>67</total>
+  </record>
+  <record>
+    <name>Автоном Захарьевич Королев</name>
+    <group>ИИ-4</group>
+    <sick>10</sick>
+    <other>23</other>
+    <disrespectful>20</disrespectful>
+    <total>53</total>
+  </record>
+  <record>
+    <name>Валентина Семеновна Орлова</name>
+    <group>ИИ-3</group>
+    <sick>6</sick>
+    <other>4</other>
+    <disrespectful>3</disrespectful>
+    <total>13</total>
+  </record>
+  <record>
+    <name>Валерия Тимофеевна Власова</name>
+    <group>ИИ-2</group>
+    <sick>16</sick>
+    <other>10</other>
+    <disrespectful>22</disrespectful>
+    <total>48</total>
+  </record>
+  <record>
+    <name>Кудрявцев Афанасий Харлампьевич</name>
+    <group>ИИ-3</group>
+    <sick>26</sick>
+    <other>18</other>
+    <disrespectful>7</disrespectful>
+    <total>51</total>
+  </record>
+  <record>
+    <name>Тихонова Лариса Семеновна</name>
+    <group>ИИ-2</group>
+    <sick>20</sick>
+    <other>14</other>
+    <disrespectful>4</disrespectful>
+    <total>38</total>
+  </record>
+  <record>
+    <name>Орест Иосипович Аксенов</name>
+    <group>ИИ-3</group>
+    <sick>16</sick>
+    <other>7</other>
+    <disrespectful>5</disrespectful>
+    <total>28</total>
+  </record>
+  <record>
+    <name>Николаева Фёкла Львовна</name>
+    <group>ИИ-2</group>
+    <sick>19</sick>
+    <other>10</other>
+    <disrespectful>25</disrespectful>
+    <total>54</total>
+  </record>
+  <record>
+    <name>Зиновьева Марфа Кирилловна</name>
+    <group>ИИ-5</group>
+    <sick>9</sick>
+    <other>4</other>
+    <disrespectful>9</disrespectful>
+    <total>22</total>
+  </record>
+  <record>
+    <name>Зинаида Кирилловна Исаева</name>
+    <group>ИИ-1</group>
+    <sick>8</sick>
+    <other>28</other>
+    <disrespectful>13</disrespectful>
+    <total>49</total>
+  </record>
+  <record>
+    <name>Костин Парамон Демидович</name>
+    <group>ИИ-4</group>
+    <sick>24</sick>
+    <other>17</other>
+    <disrespectful>18</disrespectful>
+    <total>59</total>
+  </record>
+  <record>
+    <name>Киселева Зоя Дмитриевна</name>
+    <group>ИИ-2</group>
+    <sick>30</sick>
+    <other>11</other>
+    <disrespectful>12</disrespectful>
+    <total>53</total>
+  </record>
+  <record>
+    <name>Сила Фокич Дроздов</name>
+    <group>ИИ-5</group>
+    <sick>12</sick>
+    <other>15</other>
+    <disrespectful>24</disrespectful>
+    <total>51</total>
+  </record>
+  <record>
+    <name>Валентина Леоновна Терентьева</name>
+    <group>ИИ-5</group>
+    <sick>2</sick>
+    <other>18</other>
+    <disrespectful>4</disrespectful>
+    <total>24</total>
+  </record>
+  <record>
+    <name>Михайлова Элеонора Петровна</name>
+    <group>ИИ-2</group>
+    <sick>15</sick>
+    <other>20</other>
+    <disrespectful>8</disrespectful>
+    <total>43</total>
+  </record>
+  <record>
+    <name>Ратмир Харлампьевич Журавлев</name>
+    <group>ИИ-5</group>
+    <sick>9</sick>
+    <other>0</other>
+    <disrespectful>6</disrespectful>
+    <total>15</total>
+  </record>
+  <record>
+    <name>Моисей Ярославович Горбунов</name>
+    <group>ИИ-4</group>
+    <sick>13</sick>
+    <other>30</other>
+    <disrespectful>13</disrespectful>
+    <total>56</total>
+  </record>
+  <record>
+    <name>Виктория Геннадьевна Крюкова</name>
+    <group>ИИ-1</group>
+    <sick>3</sick>
+    <other>14</other>
+    <disrespectful>0</disrespectful>
+    <total>17</total>
+  </record>
+  <record>
+    <name>Глафира Антоновна Гурьева</name>
+    <group>ИИ-4</group>
+    <sick>22</sick>
+    <other>18</other>
+    <disrespectful>5</disrespectful>
+    <total>45</total>
+  </record>
+  <record>
+    <name>Рожков Милан Жанович</name>
+    <group>ИИ-4</group>
+    <sick>26</sick>
+    <other>13</other>
+    <disrespectful>26</disrespectful>
+    <total>65</total>
+  </record>
+  <record>
+    <name>Николаева Пелагея Феликсовна</name>
+    <group>ИИ-5</group>
+    <sick>15</sick>
+    <other>14</other>
+    <disrespectful>2</disrespectful>
+    <total>31</total>
+  </record>
+  <record>
+    <name>Иосиф Григорьевич Афанасьев</name>
+    <group>ИИ-1</group>
+    <sick>14</sick>
+    <other>11</other>
+    <disrespectful>3</disrespectful>
+    <total>28</total>
+  </record>
+  <record>
+    <name>Изот Анатольевич Борисов</name>
+    <group>ИИ-5</group>
+    <sick>5</sick>
+    <other>0</other>
+    <disrespectful>8</disrespectful>
+    <total>13</total>
+  </record>
+  <record>
+    <name>Комиссаров Зосима Исидорович</name>
+    <group>ИИ-1</group>
+    <sick>18</sick>
+    <other>5</other>
+    <disrespectful>17</disrespectful>
+    <total>40</total>
+  </record>
+  <record>
+    <name>Ульян Тимурович Козлов</name>
+    <group>ИИ-3</group>
+    <sick>21</sick>
+    <other>15</other>
+    <disrespectful>7</disrespectful>
+    <total>43</total>
+  </record>
+  <record>
+    <name>Галина Николаевна Силина</name>
+    <group>ИИ-5</group>
+    <sick>6</sick>
+    <other>23</other>
+    <disrespectful>20</disrespectful>
+    <total>49</total>
+  </record>
+  <record>
+    <name>Вишняков Евстафий Чеславович</name>
+    <group>ИИ-4</group>
+    <sick>20</sick>
+    <other>16</other>
+    <disrespectful>12</disrespectful>
+    <total>48</total>
+  </record>
+  <record>
+    <name>Лукия Максимовна Тетерина</name>
+    <group>ИИ-4</group>
+    <sick>29</sick>
+    <other>16</other>
+    <disrespectful>1</disrespectful>
+    <total>46</total>
+  </record>
+  <record>
+    <name>Ярополк Фомич Воробьев</name>
+    <group>ИИ-4</group>
+    <sick>5</sick>
+    <other>19</other>
+    <disrespectful>8</disrespectful>
+    <total>32</total>
+  </record>
+  <record>
+    <name>Таисия Тарасовна Воронцова</name>
+    <group>ИИ-5</group>
+    <sick>19</sick>
+    <other>2</other>
+    <disrespectful>24</disrespectful>
+    <total>45</total>
+  </record>
+  <record>
+    <name>Смирнова Лариса Сергеевна</name>
+    <group>ИИ-5</group>
+    <sick>10</sick>
+    <other>3</other>
+    <disrespectful>25</disrespectful>
+    <total>38</total>
+  </record>
+  <record>
+    <name>Васильева Регина Ниловна</name>
+    <group>ИИ-1</group>
+    <sick>30</sick>
+    <other>5</other>
+    <disrespectful>1</disrespectful>
+    <total>36</total>
+  </record>
+  <record>
+    <name>Маркова Милица Ивановна</name>
+    <group>ИИ-4</group>
+    <sick>6</sick>
+    <other>2</other>
+    <disrespectful>20</disrespectful>
+    <total>28</total>
+  </record>
+  <record>
+    <name>Егор Ааронович Фокин</name>
+    <group>ИИ-5</group>
+    <sick>4</sick>
+    <other>2</other>
+    <disrespectful>22</disrespectful>
+    <total>28</total>
+  </record>
+  <record>
+    <name>Андреев Парамон Венедиктович</name>
+    <group>ИИ-3</group>
+    <sick>5</sick>
+    <other>7</other>
+    <disrespectful>28</disrespectful>
+    <total>40</total>
+  </record>
+  <record>
+    <name>Рожков Дорофей Аверьянович</name>
+    <group>ИИ-5</group>
+    <sick>8</sick>
+    <other>15</other>
+    <disrespectful>27</disrespectful>
+    <total>50</total>
+  </record>
+  <record>
+    <name>Петр Ермолаевич Евсеев</name>
+    <group>ИИ-3</group>
+    <sick>24</sick>
+    <other>3</other>
+    <disrespectful>9</disrespectful>
+    <total>36</total>
+  </record>
+  <record>
+    <name>Никифор Федосеевич Коновалов</name>
+    <group>ИИ-4</group>
+    <sick>12</sick>
+    <other>28</other>
+    <disrespectful>15</disrespectful>
+    <total>55</total>
+  </record>
+  <record>
+    <name>Савватий Якубович Виноградов</name>
+    <group>ИИ-1</group>
+    <sick>11</sick>
+    <other>27</other>
+    <disrespectful>20</disrespectful>
+    <total>58</total>
+  </record>
+  <record>
+    <name>Иванна Владиславовна Гусева</name>
+    <group>ИИ-2</group>
+    <sick>18</sick>
+    <other>0</other>
+    <disrespectful>12</disrespectful>
+    <total>30</total>
+  </record>
+  <record>
+    <name>Буров Родион Феоктистович</name>
+    <group>ИИ-5</group>
+    <sick>6</sick>
+    <other>11</other>
+    <disrespectful>4</disrespectful>
+    <total>21</total>
+  </record>
+  <record>
+    <name>Емельянова Дарья Дмитриевна</name>
+    <group>ИИ-5</group>
+    <sick>24</sick>
+    <other>24</other>
+    <disrespectful>14</disrespectful>
+    <total>62</total>
+  </record>
+  <record>
+    <name>Афанасьева Ксения Афанасьевна</name>
+    <group>ИИ-1</group>
+    <sick>28</sick>
+    <other>9</other>
+    <disrespectful>8</disrespectful>
+    <total>45</total>
+  </record>
+  <record>
+    <name>Мартьян Арсенович Копылов</name>
+    <group>ИИ-5</group>
+    <sick>18</sick>
+    <other>2</other>
+    <disrespectful>13</disrespectful>
+    <total>33</total>
+  </record>
+  <record>
+    <name>Гурьева Пелагея Тимофеевна</name>
+    <group>ИИ-3</group>
+    <sick>20</sick>
+    <other>19</other>
+    <disrespectful>26</disrespectful>
+    <total>65</total>
+  </record>
+  <record>
+    <name>Маркова Марфа Александровна</name>
+    <group>ИИ-2</group>
+    <sick>24</sick>
+    <other>13</other>
+    <disrespectful>14</disrespectful>
+    <total>51</total>
+  </record>
+  <record>
+    <name>Фролова Валерия Рудольфовна</name>
+    <group>ИИ-2</group>
+    <sick>7</sick>
+    <other>24</other>
+    <disrespectful>13</disrespectful>
+    <total>44</total>
+  </record>
+  <record>
+    <name>Зоя Васильевна Панова</name>
+    <group>ИИ-5</group>
+    <sick>15</sick>
+    <other>26</other>
+    <disrespectful>2</disrespectful>
+    <total>43</total>
+  </record>
+  <record>
+    <name>Марк Эдгарович Суханов</name>
+    <group>ИИ-3</group>
+    <sick>10</sick>
+    <other>17</other>
+    <disrespectful>10</disrespectful>
+    <total>37</total>
+  </record>
+  <record>
+    <name>Лидия Харитоновна Тетерина</name>
+    <group>ИИ-5</group>
+    <sick>27</sick>
+    <other>3</other>
+    <disrespectful>20</disrespectful>
+    <total>50</total>
+  </record>
+  <record>
+    <name>Анжелика Матвеевна Абрамова</name>
+    <group>ИИ-5</group>
+    <sick>1</sick>
+    <other>30</other>
+    <disrespectful>29</disrespectful>
+    <total>60</total>
+  </record>
+  <record>
+    <name>Леонид Ермилович Козлов</name>
+    <group>ИИ-3</group>
+    <sick>5</sick>
+    <other>8</other>
+    <disrespectful>8</disrespectful>
+    <total>21</total>
+  </record>
+  <record>
+    <name>Ильина Алина Феликсовна</name>
+    <group>ИИ-2</group>
+    <sick>18</sick>
+    <other>12</other>
+    <disrespectful>5</disrespectful>
+    <total>35</total>
+  </record>
+</records>
