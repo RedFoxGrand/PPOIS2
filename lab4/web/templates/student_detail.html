@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Профиль студента: {{ student.full_name }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+<div class="container">
+    <h1>Профиль студента</h1>
+    <div class="detail-card">
+        <h2>{{ student.full_name }}</h2>
+        <p><strong>Возраст:</strong> {{ student.age }}</p>
+        <p><strong>Учебный план:</strong> {{ student.curriculum.specialty_name if student.curriculum else 'Не назначен' }}</p>
+        <p><strong>Стипендия:</strong> {{ student.scholarship_amount }} руб.</p>
+        <p><strong>Средний балл:</strong> {{ "%.2f"|format(student.average_score) }}</p>
+
+        <h3>Зачетная книжка:</h3>
+        {% if student.record_book %}
+            <ul>
+            {% for subject, grade in student.record_book.items() %}
+                <li>{{ subject }}: <strong>{{ grade }}</strong></li>
+            {% endfor %}
+            </ul>
+        {% else %}
+            <p><em>Оценок пока нет.</em></p>
+        {% endif %}
+
+        <h3>Взятые книги:</h3>
+        {% if student.borrowed_books %}
+            <ul>
+            {% for book in student.borrowed_books %}
+                <li>{{ book.title }} ({{ book.author }})</li>
+            {% endfor %}
+            </ul>
+        {% else %}
+            <p><em>Нет взятых книг.</em></p>
+        {% endif %}
+    </div>
+    <a href="{{ url_for('index') }}" style="display: inline-block; margin-top: 20px;">Назад к списку</a>
+</div>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Профиль преподавателя: {{ teacher.full_name }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+<div class="container">
+    <h1>Профиль преподавателя</h1>
+    <div class="detail-card">
+        <h2>{{ teacher.full_name }}</h2>
+        <p><strong>Возраст:</strong> {{ teacher.age }}</p>
+        <p><strong>Ученая степень:</strong> {{ teacher.degree.value if teacher.degree else 'Не указана' }}</p>
+        
+        <h3>Читаемые предметы:</h3>
+        {% if teacher.subjects %}
+            <ul>
+            {% for subject in teacher.subjects %}
+                <li>{{ subject }}</li>
+            {% endfor %}
+            </ul>
+        {% else %}
+            <p><em>Нет назначенных предметов.</em></p>
+        {% endif %}
+    </div>
+    <a href="{{ url_for('index') }}" style="display: inline-block; margin-top: 20px;">Назад к списку</a>
+</div>
+</body>
+</html>

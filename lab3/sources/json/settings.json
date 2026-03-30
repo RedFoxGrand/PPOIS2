@@ -1,0 +1,41 @@
+{
+    "width": 800,
+    "height": 600,
+    "fps": 60,
+    "block_size": 32,
+    "gravity": 0.5,
+    "player_speed": 5,
+    "jump_power": -10,
+    "assets": {
+        "sounds": {
+            "theme": "music/theme.mp3",
+            "menu_theme": "music/menu_theme.mp3",
+            "victory_theme": "music/victory_theme.mp3",
+            "defeat_theme": "music/defeat_theme.mp3",
+            "jump": "music/jump.wav",
+            "coin": "music/coin.wav",
+            "powerup": "music/powerup.wav",
+            "stomp": "music/stomp.wav"
+        },
+        "images": {
+            "standing_mario": "icons/standing_mario.png",
+            "running_mario": "icons/running_mario.png",
+            "standing_super_mario": "icons/standing_super_mario.png",
+            "running_super_mario": "icons/running_super_mario.png",
+            "dead_mario": "icons/dead_mario.png",
+            "enemy": "icons/enemy.png",
+            "coin": "icons/coin.png",
+            "mushroom": "icons/mushroom.png",
+            "lucky_block": "icons/lucky_block.png",
+            "block": "icons/block.png",
+            "finish": "icons/finish.png",
+            "menu_miniature": "icons/menu_miniature.png",
+            "records_miniature": "icons/records_miniature.png",
+            "help_miniature": "icons/help_miniature.png",
+            "victory_miniature": "icons/victory_miniature.png",
+            "defeat_miniature": "icons/defeat_miniature.png",
+            "new_record_miniature": "icons/new_record_miniature.png",
+            "time": "icons/time.png"
+        }
+    }
+}

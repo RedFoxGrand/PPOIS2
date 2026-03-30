@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Модель "Университет"</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+<div class="container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="flash {{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <h1>Университет: {{ uni.name }}</h1>
+    
+    <div class="stats">
+        <h3>Текущее состояние базы данных:</h3>
+        <ul>
+            <li>Студентов: <strong>{{ uni.students | length }}</strong></li>
+            <li>Преподавателей: <strong>{{ uni.teachers | length }}</strong></li>
+            <li>Учебных планов: <strong>{{ uni.curriculums | length }}</strong></li>
+        </ul>
+
+        <div class="stats-grid">
+            <div class="stats-col">
+                <h4 style="margin-top: 0;">Список студентов:</h4>
+                <ul>
+                    {% for student in uni.students %}
+                        <li><a href="{{ url_for('view_student', student_id=student.id) }}">{{ student.full_name }}</a></li>
+                    {% else %}
+                        <li><em>Студентов пока нет.</em></li>
+                    {% endfor %}
+                </ul>
+                <h4 style="margin-top: 20px;">Список преподавателей:</h4>
+                <ul>
+                    {% for teacher in uni.teachers %}
+                        <li><a href="{{ url_for('view_teacher', teacher_id=teacher.id) }}">{{ teacher.full_name }}</a></li>
+                    {% else %}
+                        <li><em>Преподавателей пока нет.</em></li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <div class="stats-col">
+                <h4 style="margin-top: 0;">Аудитории:</h4>
+                <ul>
+                    {% for c in uni.classrooms %}
+                        <li>Ауд. {{ c.number }} (вмест. {{ c.capacity }}) {% if c.is_occupied %}<strong style="color: #e74c3c;">[Занята]</strong>{% endif %}</li>
+                    {% else %}
+                        <li><em>Аудиторий пока нет.</em></li>
+                    {% endfor %}
+                </ul>
+                <h4 style="margin-top: 20px;">Учебные планы:</h4>
+                <ul>
+                    {% for curr in uni.curriculums %}
+                        <li>{{ curr.specialty_name }} <small>({{ curr.required_subjects | join(', ') }})</small></li>
+                    {% endfor %}
+                </ul>
+                <h4 style="margin-top: 0px;">Ассортимент библиотеки:</h4>
+                <ul>
+                    {% for book, quantity in uni.library.inventory.items() %}
+                        <li>"{{ book.title }}" ({{ book.author }}) — <strong>{{ quantity }} шт.</strong></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <h2>Действия с моделью</h2>
+    
+    <div class="grid-forms">
+        <div class="form-group">
+            <form action="/add_student" method="post">
+                <label><strong>Добавить студента</strong></label><br><br>
+                <input type="text" name="name" placeholder="ФИО" required style="width: 100%; margin-bottom: 10px; box-sizing: border-box;">
+                <input type="number" name="age" placeholder="Возраст" required min="16" style="width: 100%; padding: 8px; margin-bottom: 10px; box-sizing: border-box;">
+                <select name="specialty_name" required style="width: 100%; padding: 8px; margin-bottom: 10px;">
+                    <option value="">Выберите учебный план...</option>
+                    {% for c in uni.curriculums %}
+                    <option value="{{ c.specialty_name }}">{{ c.specialty_name }}</option>
+                    {% endfor %}
+                </select>
+                <button type="submit">Добавить</button>
+            </form>
+        </div>
+
+        <div class="form-group">
+            <form action="/remove_student" method="post">
+                <label><strong>Отчислить студента</strong></label><br><br>
+                <select name="student_id" required style="width: 100%; padding: 8px; margin-bottom: 10px; box-sizing: border-box;">
+                    <option value="">Выберите студента...</option>
+                    {% for s in uni.students %}
+                    <option value="{{ s.id }}">{{ s.full_name }}</option>
+                    {% endfor %}
+                </select><br>
+                <button type="submit" style="background-color: #e74c3c;">Отчислить</button>
+            </form>
+        </div>
+
+        <div class="form-group">
+            <form action="/add_teacher" method="post">
+                <label><strong>Добавить преподавателя</strong></label><br><br>
+                <input type="text" name="name" placeholder="ФИО" required style="width: 100%; margin-bottom: 10px; box-sizing: border-box;">
+                <input type="number" name="age" placeholder="Возраст" required min="20" style="width: 100%; padding: 8px; margin-bottom: 10px; box-sizing: border-box;">
+                <select name="degree" required style="width: 100%; padding: 8px; margin-bottom: 10px;">
+                    <option value="">Учёная степень...</option>
+                    {% for d in TeacherDegree %}
+                    <option value="{{ d.value }}">{{ d.value }}</option>
+                    {% endfor %}
+                </select>
+                <input type="text" name="subjects" placeholder="Предметы (через запятую)" required style="width: 100%; margin-bottom: 10px; box-sizing: border-box;">
+                <button type="submit">Добавить</button>
+            </form>
+        </div>
+
+        <div class="form-group">
+            <form action="/remove_teacher" method="post">
+                <label><strong>Уволить преподавателя</strong></label><br><br>
+                <select name="teacher_id" required style="width: 100%; padding: 8px; margin-bottom: 10px;">
+                    <option value="">Выберите преподавателя...</option>
+                    {% for t in uni.teachers %}
+                    <option value="{{ t.id }}">{{ t.full_name }}</option>
+                    {% endfor %}
+                </select><br>
+                <button type="submit" style="background-color: #e74c3c;">Уволить</button>
+            </form>
+        </div>
+
+        <div class="form-group">
+            <form action="/add_curriculum" method="post">
+                <label><strong>Новый учебный план</strong></label><br><br>
+                <input type="text" name="specialty_name" placeholder="Название плана" required style="width: 100%; margin-bottom: 10px; box-sizing: border-box;">
+                <button type="submit">Создать</button>
+            </form>
+        </div>
+
+        <div class="form-group">
+            <form action="/add_subject" method="post">
+                <label><strong>Предмет в учебный план</strong></label><br><br>
+                <select name="specialty_name" required style="width: 100%; padding: 8px; margin-bottom: 10px;">
+                    <option value="">Выберите учебный план...</option>
+                    {% for c in uni.curriculums %}
+                    <option value="{{ c.specialty_name }}">{{ c.specialty_name }}</option>
+                    {% endfor %}
+                </select>
+                <input type="text" name="subject_name" placeholder="Название предмета" required style="width: 100%; margin-bottom: 10px; box-sizing: border-box;">
+                <button type="submit">Добавить предмет</button>
+            </form>
+        </div>
+
+        <div class="form-group">
+            <form action="/add_classroom" method="post">
+                <label><strong>Добавить аудиторию</strong></label><br><br>
+                <input type="number" name="number" placeholder="Номер аудитории" required min="1" style="width: 100%; padding: 8px; margin-bottom: 10px; box-sizing: border-box;">
+                <input type="number" name="capacity" placeholder="Вместимость" required min="1" style="width: 100%; padding: 8px; margin-bottom: 10px; box-sizing: border-box;">
+                <button type="submit">Добавить</button>
+            </form>
+        </div>
+
+        <div class="form-group">
+            <form action="/conduct_exam" method="post">
+                <label><strong>Провести экзамен</strong></label><br><br>
+                <input type="text" name="subject" placeholder="Название предмета" required style="width: 100%; margin-bottom: 10px; box-sizing: border-box;">
+                <button type="submit" style="background-color: #f39c12;">Провести</button>
+            </form>
+        </div>
+
+        <div class="form-group">
+            <form action="/library_action" method="post">
+                <label><strong>Библиотека</strong></label><br><br>
+                <select name="action" id="lib_action" required style="width: 100%; padding: 8px; margin-bottom: 10px;" onchange="toggleLibFields()">
+                    <option value="take_book">Взять книгу</option>
+                    <option value="return_book">Вернуть книгу</option>
+                    <option value="add_book">Добавить в ассортимент</option>
+                </select>
+                <select name="student_id" id="lib_student" required style="width: 100%; padding: 8px; margin-bottom: 10px;">
+                    <option value="">Выберите студента...</option>
+                    {% for s in uni.students %}
+                    <option value="{{ s.id }}">{{ s.full_name }}</option>
+                    {% endfor %}
+                </select>
+                <input type="text" name="title" placeholder="Название книги" required style="width: 100%; margin-bottom: 10px; box-sizing: border-box;">
+                <div id="lib_extra" style="display: none;">
+                    <input type="text" name="author" placeholder="Автор" style="width: 100%; margin-bottom: 10px; box-sizing: border-box;">
+                    <input type="number" name="quantity" placeholder="Количество" min="1" value="1" style="width: 100%; padding: 8px; margin-bottom: 10px; box-sizing: border-box;">
+                </div>
+                <button type="submit">Выполнить</button>
+            </form>
+        </div>
+
+        <div class="form-group">
+            <form action="/process_semester" method="post">
+                <label><strong>Завершение семестра</strong></label><br><br>
+                <button type="submit" style="background-color: #27ae60;">Рассчитать стипендии</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

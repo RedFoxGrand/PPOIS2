@@ -1,0 +1,321 @@
+{
+    "name": "BSUIR",
+    "curriculums": [
+        {
+            "specialty_name": "СУИ",
+            "required_subjects": [
+                "БД",
+                "АПЭЦ",
+                "ООП",
+                "ОАиП"
+            ]
+        },
+        {
+            "specialty_name": "ИИ",
+            "required_subjects": [
+                "МОИС",
+                "ППОИС",
+                "ЛОИС",
+                "ОАиП"
+            ]
+        },
+        {
+            "specialty_name": "ВМиП",
+            "required_subjects": [
+                "ДМ",
+                "РИК",
+                "ООПиП",
+                "ОАиП"
+            ]
+        }
+    ],
+    "classrooms": [
+        {
+            "number": 114,
+            "capacity": 30,
+            "is_occupied": false
+        },
+        {
+            "number": 312,
+            "capacity": 55,
+            "is_occupied": false
+        },
+        {
+            "number": 503,
+            "capacity": 25,
+            "is_occupied": false
+        },
+        {
+            "number": 408,
+            "capacity": 20,
+            "is_occupied": false
+        },
+        {
+            "number": 721,
+            "capacity": 50,
+            "is_occupied": false
+        }
+    ],
+    "teachers": [
+        {
+            "id": "f94f80ed-fa7c-4e1f-affe-e5e0f30d95eb",
+            "full_name": "Гукова Елена Игоревна",
+            "age": 56,
+            "degree": "Доцент",
+            "subjects": [
+                "БД",
+                "МОИС",
+                "ЛОИС"
+            ]
+        },
+        {
+            "id": "86d49561-529c-4ea9-905c-8d27749f3faf",
+            "full_name": "Петров Сергей Иванович",
+            "age": 43,
+            "degree": "Старший преподаватель",
+            "subjects": [
+                "МОИС",
+                "ЛОИС"
+            ]
+        },
+        {
+            "id": "d573cbbd-f605-478b-b623-85ea31c4ff00",
+            "full_name": "Ронина Анна Ивановна",
+            "age": 45,
+            "degree": "Доктор наук",
+            "subjects": [
+                "ООП",
+                "ООПиП",
+                "ППОИС",
+                "ОАиП"
+            ]
+        },
+        {
+            "id": "bc49efb9-9618-4c44-89b5-588aee587785",
+            "full_name": "Андреева Елена Александровна",
+            "age": 39,
+            "degree": "Кандидат наук",
+            "subjects": [
+                "ППОИС",
+                "ОАиП",
+                "БД",
+                "ДМ"
+            ]
+        },
+        {
+            "id": "db7822e6-f61e-4009-aa0f-693bed590591",
+            "full_name": "Норд Ольга Эдуардовна",
+            "age": 25,
+            "degree": "Преподаватель",
+            "subjects": [
+                "АПЭЦ",
+                "РИК"
+            ]
+        },
+        {
+            "id": "8197390e-c834-4608-9fe7-308304afef64",
+            "full_name": "Асманов Константин Русланович",
+            "age": 41,
+            "degree": "Старший преподаватель",
+            "subjects": [
+                "АПЭЦ",
+                "ООПиП",
+                "ООП"
+            ]
+        },
+        {
+            "id": "64bbe7b7-b31f-4062-941d-fe973f66b8e7",
+            "full_name": "Кондратьев Михаил Михайлович",
+            "age": 72,
+            "degree": "Профессор",
+            "subjects": [
+                "РИК",
+                "ДМ",
+                "ОАиП"
+            ]
+        }
+    ],
+    "students": [
+        {
+            "id": "0ce93d29-d782-4ca9-895f-ab4b994a3daa",
+            "full_name": "Иванов Иван Иванович",
+            "age": 20,
+            "curriculum_name": "СУИ",
+            "scholarship_amount": 0.0,
+            "record_book": {},
+            "borrowed_books_isbns": []
+        },
+        {
+            "id": "f918eeb2-14f1-4001-9187-5a5c68b42896",
+            "full_name": "Петров Петр Петрович",
+            "age": 22,
+            "curriculum_name": "ИИ",
+            "scholarship_amount": 0.0,
+            "record_book": {},
+            "borrowed_books_isbns": []
+        },
+        {
+            "id": "1cd33e3c-e11b-45e2-8d5d-33eaa2c76210",
+            "full_name": "Сидоров Сидор Сидорович",
+            "age": 19,
+            "curriculum_name": "ВМиП",
+            "scholarship_amount": 0.0,
+            "record_book": {},
+            "borrowed_books_isbns": [
+                "7d5583a0-7e24-4539-a96e-9234b2684ea3",
+                "587a6b9f-b4da-4b1e-9001-4421f8ad34d8",
+                "74a6e89a-3811-4c10-be3a-87accd66857f"
+            ]
+        },
+        {
+            "id": "a39293dc-aa72-4bf8-aed6-850ea9f4ff4a",
+            "full_name": "Андрееев Андрей Андреевич",
+            "age": 18,
+            "curriculum_name": "ИИ",
+            "scholarship_amount": 0.0,
+            "record_book": {},
+            "borrowed_books_isbns": []
+        },
+        {
+            "id": "a9b4ec95-34ab-41c5-8f7b-933e80af6f48",
+            "full_name": "Денисов Денис Денисович",
+            "age": 27,
+            "curriculum_name": "СУИ",
+            "scholarship_amount": 0.0,
+            "record_book": {},
+            "borrowed_books_isbns": []
+        },
+        {
+            "id": "070867b7-725c-49c9-b405-84c7c7f9b724",
+            "full_name": "Максимов Максим Максимович",
+            "age": 20,
+            "curriculum_name": "ИИ",
+            "scholarship_amount": 0.0,
+            "record_book": {},
+            "borrowed_books_isbns": []
+        },
+        {
+            "id": "31990912-272d-4d21-a5af-c157760653d1",
+            "full_name": "Сергеев Сергей Сергеевич",
+            "age": 18,
+            "curriculum_name": "ВМиП",
+            "scholarship_amount": 0.0,
+            "record_book": {},
+            "borrowed_books_isbns": []
+        },
+        {
+            "id": "cb5b5b0c-8c03-4c81-a77b-f42532df6162",
+            "full_name": "Антонов Антон Антонович",
+            "age": 21,
+            "curriculum_name": "ИИ",
+            "scholarship_amount": 0.0,
+            "record_book": {},
+            "borrowed_books_isbns": []
+        },
+        {
+            "id": "2550d5ba-5116-4467-a52a-15536320d1dd",
+            "full_name": "Павлов Павел Павлович",
+            "age": 22,
+            "curriculum_name": "ВМиП",
+            "scholarship_amount": 0.0,
+            "record_book": {},
+            "borrowed_books_isbns": []
+        },
+        {
+            "id": "8c4bd29c-5791-4e52-be09-9d3d7286318f",
+            "full_name": "Захаров Захар Захарович",
+            "age": 18,
+            "curriculum_name": "СУИ",
+            "scholarship_amount": 0.0,
+            "record_book": {},
+            "borrowed_books_isbns": [
+                "7d5583a0-7e24-4539-a96e-9234b2684ea3"
+            ]
+        },
+        {
+            "id": "0a07dbd8-6be9-40ef-9a67-a9b42f61604f",
+            "full_name": "Алексеев Алексей Алексеевич",
+            "age": 19,
+            "curriculum_name": "СУИ",
+            "scholarship_amount": 0.0,
+            "record_book": {},
+            "borrowed_books_isbns": []
+        },
+        {
+            "id": "106e1318-97a6-4a57-951e-375d0dc81697",
+            "full_name": "Васильев Василий Васильевич",
+            "age": 21,
+            "curriculum_name": "ИИ",
+            "scholarship_amount": 0.0,
+            "record_book": {},
+            "borrowed_books_isbns": []
+        }
+    ],
+    "library": [
+        {
+            "book": {
+                "title": "Война и мир",
+                "author": "Л. Н. Толстой",
+                "isbn": "e8e23ddd-4b4e-4e0e-aa2e-7aa3995aae6b"
+            },
+            "quantity": 9
+        },
+        {
+            "book": {
+                "title": "Преступление и наказание",
+                "author": "Ф. М. Достоевский",
+                "isbn": "587a6b9f-b4da-4b1e-9001-4421f8ad34d8"
+            },
+            "quantity": 14
+        },
+        {
+            "book": {
+                "title": "Мастер и Маргарита",
+                "author": "М. Булгаков",
+                "isbn": "f29cc671-2c5e-477f-bd4b-ae6e0d32de03"
+            },
+            "quantity": 5
+        },
+        {
+            "book": {
+                "title": "1984",
+                "author": "Дж. Оруэлл",
+                "isbn": "80ed1a20-0384-4d17-8d0f-cf0aaab07c00"
+            },
+            "quantity": 9
+        },
+        {
+            "book": {
+                "title": "Этюд в багровых тонах",
+                "author": "Артур Конан Дойл",
+                "isbn": "0492e9dc-0dbc-4e1f-926b-894950eff43b"
+            },
+            "quantity": 12
+        },
+        {
+            "book": {
+                "title": "Я, робот",
+                "author": "Айзек Азимов",
+                "isbn": "7d5583a0-7e24-4539-a96e-9234b2684ea3"
+            },
+            "quantity": 12
+        },
+        {
+            "book": {
+                "title": "Вокруг света за 80 дней",
+                "author": "Жюль Верн",
+                "isbn": "fe2fc2ee-9b10-403c-8106-6c1b5aa5c379"
+            },
+            "quantity": 11
+        },
+        {
+            "book": {
+                "title": "Гарри Поттер",
+                "author": "Дж.К. Роулинг",
+                "isbn": "74a6e89a-3811-4c10-be3a-87accd66857f"
+            },
+            "quantity": 0
+        }
+    ],
+    "exams": []
+}

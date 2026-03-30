@@ -1,0 +1,17 @@
+{
+    "level_name": "World 1-1",
+    "map": [
+        "                                                                                                                                                                                                                                                                    ",
+        "                                                                                                                                                                                                                                                                    ",
+        "                                                                                                                                                                                                                                                                    ",
+        "                                                                               CCC                       CC                                                                      CC                     CCC               T                                         ",
+        "                                           CCC                                  ?                      CC                      XXXXX                             CC                      C                        ?      X?X                                        ",
+        "          C       CCC                   E                            M                             E                          XXXXXXX                   E                                                                         E                                 ",
+        "        XXXX                         ?XXX?                          ????                          X??X                       XXXXXXXXX                XXXX                    E T               XXXX            ?                 XXXX                              ",
+        "                       CC                                                                                                   XXXXXXXXXXX                                     XXXXX                                                            CC                     ",
+        "                       XX                              T                           XXC      M   CCCCCCCCCCCCCCCCCCCCCCCCCC XXXXXXXXXXXXX           CC                                                                                        XX            F        ",
+        "P        C   E        XXXX      M        E            XXX               E         XXXX               E           T        XXXXXXXXXXXXXXX          XX                                                  M                                    XXXX                    ",
+        "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX   XXXXXXXXXXXXXXXXXXX       XXXXXXXXXXXXXXXXXXXXXXXXXXXXX   XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX   XXXXXXXXXXXXXXXXXXXXXX   XXXXXXXXXXXXXXXXX      XXXXXXXXXXXXXXXXXXXXXXXX   XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+        "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX   XXXXXXXXXXXXXXXXXXX       XXXXXXXXXXXXXXXXXXXXXXXXXXXXX   XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX   XXXXXXXXXXXXXXXXXXXXXX   XXXXXXXXXXXXXXXXX      XXXXXXXXXXXXXXXXXXXXXXXX   XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+    ]
+}
